@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách Sổ tiết kiệm</title>
+    <link rel="stylesheet" href="/static/css/savingsList.css">
+</head>
+<body>
+<header onclick="redirectToHome()"> <!-- Thêm sự kiện onclick vào đây -->
+    <h1>SOA N12</h1>
+</header>
+<div class="container">
+    <h1>Danh sách Sổ tiết kiệm</h1>
+    <ul id="savingsList"></ul>
+</div>
+<footer>
+    <p>© 2024 - SOA N12</p>
+</footer>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Thông tin Sổ tiết kiệm</h2>
+        <div id="savingsInfo"></div>
+        <button id="closeModal">Đóng</button>
+        <button id="withdraw">Tất toán</button>
+    </div>
+</div>
+<div id="passwordDialog" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Vui lòng nhập mật khẩu để tất toán sổ tiết kiệm:</h2>
+        <label for="passwordInput"></label><input type="password" id="passwordInput">
+        <button id="confirmButton">Xác nhận</button>
+    </div>
+</div>
+
+<script src="/static/js/savingsList.js"></script>
+<script>
+</script>
+</body>
+</html>

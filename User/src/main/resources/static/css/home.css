@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.user-info {
+    margin-bottom: 20px;
+}
+
+.user-info img {
+    width: 100px;
+    border-radius: 50%;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3598db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #074dff;
+}
+#logout-button {
+    background-color: #3598db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
+#logout-button:hover {
+    background-color: #074dff;
+}
