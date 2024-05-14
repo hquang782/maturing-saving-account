@@ -52,4 +52,4 @@ jobs:
         run: |
           cd ${{ matrix.service }}
           mvn clean install
-          java -jar ${{ matrix.service }}/target/*.jar
+          java -jar ${{ matrix.service }}/target/${{ matrix.service }}-0.0.1-SNAPSHOT.jar
