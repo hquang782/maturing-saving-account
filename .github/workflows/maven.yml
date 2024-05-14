@@ -96,8 +96,34 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+
+    - name: Wait for MySQL to be ready
+      run: |
+        for i in {30..0}; do
+          if [ "${{ matrix.service }}" == "SavingAccount" ]; then
+            if mysqladmin ping -h "127.0.0.1" --silent; then
+              break
+            fi
+          elif [ "${{ matrix.service }}" == "User" ]; then
+            if mysqladmin ping -h "127.0.0.1" -P 3307 --silent; then
+              break
+            fi
+          elif [ "${{ matrix.service }}" == "TaskService" ]; then
+            if mysqladmin ping -h "127.0.0.1" -P 3308 --silent; then
+              break
+            fi
+          elif [ "${{ matrix.service }}" == "Auth" ]; then
+            if mysqladmin ping -h "127.0.0.1" -P 3309 --silent; then
+              break
+            fi
+          fi
+          echo 'Waiting for MySQL to be ready...'
+          sleep 1
+        done
+
     - name: Build with Maven
       run: mvn -B package --file ${{ matrix.service }}/pom.xml
+
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
