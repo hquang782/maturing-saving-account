@@ -50,7 +50,10 @@ jobs:
           SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/${{ matrix.db }}
           SPRING_DATASOURCE_USERNAME: root
           SPRING_DATASOURCE_PASSWORD: ''
+      - name: Build service
         run: |
           cd ${{ matrix.service }}
-          mvn clean install
-          mvn spring-boot:run
+          mvn clean package
+
+      - name: Run service
+        run: java -jar ${{ matrix.service }}/target/*.jar
