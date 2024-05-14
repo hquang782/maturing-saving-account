@@ -22,7 +22,72 @@ jobs:
     strategy:
           matrix:
             service: [ 'SavingAccount', 'User','TaskService','Auth' ]
+            db:
+                - saving_account_service
+                - customer_service
+                - task_service
+                - auth_service
 
+    services:
+      mysql-saving-account:
+        image: mysql:latest
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: saving_account_service
+          MYSQL_USER: root
+          MYSQL_PASSWORD: ""
+
+      mysql-user:
+        image: mysql:latest
+        ports:
+          - 3307:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: customer_service
+          MYSQL_USER: root
+          MYSQL_PASSWORD: ""
+          
+      mysql-task-service:
+        image: mysql:latest
+        ports:
+          - 3308:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: task_service
+          MYSQL_USER: root
+          MYSQL_PASSWORD: ""
+          
+      mysql-auth:
+        image: mysql:latest
+        ports:
+          - 3309:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: auth_service
+          MYSQL_USER: root
+          MYSQL_PASSWORD: ""
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
