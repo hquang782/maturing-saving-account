@@ -21,7 +21,7 @@ jobs:
 
     strategy:
           matrix:
-            service: [ 'SavingAccount', 'User' ]
+            service: [ 'SavingAccount', 'User','TaskService','Auth' ]
 
     steps:
     - uses: actions/checkout@v4
