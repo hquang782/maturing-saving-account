@@ -1,19 +1,19 @@
-package org.studytest.auth.services.Impl;
+package com.example.auth.services.Impl;
 
+import com.example.auth.models.Account;
+import com.example.auth.payload.AccountDTO;
+import com.example.auth.payload.CustomerDTO;
+import com.example.auth.payload.LoginDto;
+import com.example.auth.payload.RegisterDto;
+import com.example.auth.repositories.AccountRepository;
+import com.example.auth.services.AuthService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.studytest.auth.models.Account;
-import org.studytest.auth.payload.AccountDTO;
-import org.studytest.auth.payload.CustomerDTO;
-import org.studytest.auth.payload.LoginDto;
-import org.studytest.auth.payload.RegisterDto;
-import org.studytest.auth.repositories.AccountRepository;
-import org.studytest.auth.services.AuthService;
 
-import java.beans.Transient;
+
 import java.util.Optional;
 import java.util.UUID;
 

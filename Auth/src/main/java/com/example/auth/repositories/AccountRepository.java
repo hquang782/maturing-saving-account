@@ -1,7 +1,8 @@
-package org.studytest.auth.repositories;
+package com.example.auth.repositories;
 
+
+import com.example.auth.models.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.studytest.auth.models.Account;
 
 import java.util.Optional;
 import java.util.UUID;

@@ -1,6 +1,10 @@
-package org.studytest.auth.api;
+package com.example.auth.api;
 
 
+import com.example.auth.payload.CustomerDTO;
+import com.example.auth.payload.LoginDto;
+import com.example.auth.payload.RegisterDto;
+import com.example.auth.services.AuthService;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -9,10 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.studytest.auth.payload.CustomerDTO;
-import org.studytest.auth.payload.LoginDto;
-import org.studytest.auth.payload.RegisterDto;
-import org.studytest.auth.services.AuthService;
+
 
 @Tag(name = "Auth", description = "Auth api management")
 @RestController

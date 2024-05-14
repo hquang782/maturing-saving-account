@@ -1,4 +1,4 @@
-package org.studytest.auth.payload;
+package com.example.auth.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class   RegisterDto {
+public class CustomerDTO {
+    private long id;
     private String fullName;
     private Integer age;
     private String gender;
@@ -19,6 +20,6 @@ public class   RegisterDto {
     private String phoneNumber;
     private String identificationNumber;
     private String bankAccountNumber;
-    private String username;
-    private String password;
+    private double balance;
+    private AccountDTO account;
 }

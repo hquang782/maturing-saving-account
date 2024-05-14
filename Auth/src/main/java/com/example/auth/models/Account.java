@@ -1,4 +1,4 @@
-package org.studytest.auth.models;
+package com.example.auth.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
