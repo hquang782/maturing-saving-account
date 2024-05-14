@@ -56,3 +56,13 @@ jobs:
           SPRING_DATASOURCE_USERNAME=root \
           SPRING_DATASOURCE_PASSWORD='' \
           java -jar target/${{ matrix.service }}-0.0.1-SNAPSHOT.jar
+          JAR_PID=$!
+          echo "Waiting for the service to start..."
+          sleep 30  # Adjust the sleep time as necessary to give the service enough time to start
+          if curl -f http://localhost:8080/actuator/health; then
+            echo "Service started successfully"
+            kill $JAR_PID
+          else
+            echo "Service failed to start"
+            exit 1
+          fi
