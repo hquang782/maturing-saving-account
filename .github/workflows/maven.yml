@@ -1,58 +1,58 @@
-name: Java CI with Maven
+name: Deploy Microservices
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        service: [ 'SavingAccount', 'User', 'TaskService', 'Auth' ]
+        service: ['SavingAccount', 'User', 'TaskService', 'Auth']
         db:
-          - saving_account_service
-          - customer_service
-          - task_service
-          - auth_service
+          - 'saving_account_service'
+          - 'customer_service'
+          - 'task_service'
+          - 'auth_service'
 
     services:
       mysql:
-        image: mysql:latest
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: ${{ matrix.db }}
+          MYSQL_USER: root
+          MYSQL_PASSWORD: ''
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot --silent"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
-        env:
-          MYSQL_ROOT_PASSWORD: ""
-          MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-          MYSQL_DATABASE: ${{ matrix.db }}
+          --health-cmd "mysqladmin ping --silent"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
 
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-    - name: Wait for MySQL to be ready
-      run: |
-        for i in {30..0}; do
-          if mysqladmin ping -h "127.0.0.1" -uroot --silent; then
-            break
-          fi
-          echo 'Waiting for MySQL to be ready...'
-          sleep 1
-        done
-
-    - name: Build with Maven
-      run: mvn -B package --file ${{ matrix.service }}/pom.xml
+      - name: Build and deploy service
+        env:
+          SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/${{ matrix.db }}
+          SPRING_DATASOURCE_USERNAME: root
+          SPRING_DATASOURCE_PASSWORD: ''
+        run: |
+          cd ${{ matrix.service }}
+          mvn clean install
+          mvn spring-boot:run
