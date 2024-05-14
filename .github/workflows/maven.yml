@@ -40,7 +40,7 @@ jobs:
           --health-retries=3
         env:
           MYSQL_ROOT_USER: root
-          MYSQL_ROOT_PASSWORD: ""
+          MYSQL_ALLOW_EMPTY_PASSWORD: "true"
           MYSQL_DATABASE: saving_account_service
 
       mysql-user:
@@ -55,7 +55,7 @@ jobs:
         env:
           MYSQL_DATABASE: customer_service
           MYSQL_ROOT_USER: root
-          MYSQL_ROOT_PASSWORD: ""
+          MYSQL_ALLOW_EMPTY_PASSWORD: "true"
           
       mysql-task-service:
         image: mysql:latest
@@ -68,7 +68,7 @@ jobs:
           --health-retries=3
         env:
           MYSQL_ROOT_USER: root
-          MYSQL_ROOT_PASSWORD: ""
+          MYSQL_ALLOW_EMPTY_PASSWORD: "true"
           MYSQL_DATABASE: task_service
           
       mysql-auth:
@@ -82,7 +82,7 @@ jobs:
           --health-retries=3
         env:
           MYSQL_ROOT_USER: root
-          MYSQL_ROOT_PASSWORD: ""
+          MYSQL_ALLOW_EMPTY_PASSWORD: "true"
           MYSQL_DATABASE: auth_service
     steps:
     - uses: actions/checkout@v4
