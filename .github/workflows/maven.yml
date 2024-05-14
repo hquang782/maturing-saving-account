@@ -14,12 +14,15 @@ jobs:
 
     strategy:
       matrix:
-        service: ['SavingAccount', 'User', 'TaskService', 'Auth']
-        db:
-          - 'saving_account_service'
-          - 'customer_service'
-          - 'task_service'
-          - 'auth_service'
+        include:
+          - service: 'SavingAccount'
+            db: 'saving_account_service'
+          - service: 'User'
+            db: 'customer_service'
+          - service: 'TaskService'
+            db: 'task_service'
+          - service: 'Auth'
+            db: 'auth_service'
 
     services:
       mysql:
@@ -34,6 +37,7 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 3
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -45,11 +49,10 @@ jobs:
           java-version: '17'
 
       - name: Build and deploy service
-        env:
-          SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/${{ matrix.db }}
-          SPRING_DATASOURCE_USERNAME: root
-          SPRING_DATASOURCE_PASSWORD: ''
         run: |
           cd ${{ matrix.service }}
           mvn clean install
-          java -jar ${{ matrix.service }}/target/${{ matrix.service }}-0.0.1-SNAPSHOT.jar
+          SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/${{ matrix.db }} \
+          SPRING_DATASOURCE_USERNAME=root \
+          SPRING_DATASOURCE_PASSWORD='' \
+          java -jar target/${{ matrix.service }}-0.0.1-SNAPSHOT.jar
