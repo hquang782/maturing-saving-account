@@ -45,15 +45,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Build and deploy service
+      - name: Build service
         env:
           SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/${{ matrix.db }}
           SPRING_DATASOURCE_USERNAME: root
           SPRING_DATASOURCE_PASSWORD: ''
-      - name: Build service
         run: |
           cd ${{ matrix.service }}
-          mvn clean package
+          mvn clean install
 
       - name: Run service
         run: java -jar ${{ matrix.service }}/target/*.jar
