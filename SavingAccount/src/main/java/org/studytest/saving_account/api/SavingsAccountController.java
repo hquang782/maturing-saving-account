@@ -47,7 +47,7 @@ public class SavingsAccountController {
 
     @Operation(
             summary = "API for action maturing saving account",
-            description = "Post id ò saving-account to mature saving-account")
+            description = "Post id of saving-account to mature saving-account")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteSavingsAccount(@PathVariable Long id) {
         // Gọi service để xóa tài khoản tiết kiệm
@@ -59,11 +59,11 @@ public class SavingsAccountController {
         }
     }
     @Hidden
-    @PostMapping("/{bankAccountNumber}")
-    public ResponseEntity<String> createSavingsAccount(@PathVariable String bankAccountNumber,@RequestBody SavingsAccountDTO savingsAccountDTO) {
+    @PostMapping("/{customerId}")
+    public ResponseEntity<String> createSavingsAccount(@PathVariable long customerId,@RequestBody SavingsAccountDTO savingsAccountDTO) {
 
         // Gọi service để thêm tài khoản tiết kiệm mới
-        String message = savingsAccountService.createSavingsAccount(bankAccountNumber ,savingsAccountDTO);
+        String message = savingsAccountService.createSavingsAccount(customerId ,savingsAccountDTO);
 
         return ResponseEntity.ok(message);
     }

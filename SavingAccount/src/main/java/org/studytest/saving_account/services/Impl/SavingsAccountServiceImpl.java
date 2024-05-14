@@ -187,9 +187,8 @@ public class SavingsAccountServiceImpl implements SavingsAccountService {
     }
 
     @Override
-    public String createSavingsAccount(String bankAccountNumber, SavingsAccountDTO savingsAccountDTO) {
+    public String createSavingsAccount(long customerId, SavingsAccountDTO savingsAccountDTO) {
         InterestRate interestRate = interestRateService.getInterestRateByTerm(savingsAccountDTO.getTerm());
-        long customer = Integer.parseInt(bankAccountNumber);
         if (interestRate != null) {
             // Sinh ra một số tài khoản mới và duy nhất
             String accountNumber = UUID.randomUUID().toString();
@@ -212,7 +211,7 @@ public class SavingsAccountServiceImpl implements SavingsAccountService {
             savingsAccount.setAccountNumber(accountNumber);
             savingsAccount.setInterestPaymentMethod(savingsAccountDTO.getInterestPaymentMethod());
             savingsAccount.setInterestRate(interestRate);
-            savingsAccount.setCustomerId(customer);
+            savingsAccount.setCustomerId(customerId);
 
             savingsAccountRepository.save(savingsAccount);
 

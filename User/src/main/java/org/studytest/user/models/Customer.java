@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -46,8 +48,9 @@ public class Customer {
     @Column(name = "bank_account_number", unique = true)
     private String bankAccountNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id", referencedColumnName = "id")
-    private Account account;
+    @Column()
+    private double balance;
 
+    @Column()
+    private UUID accountID;
 }

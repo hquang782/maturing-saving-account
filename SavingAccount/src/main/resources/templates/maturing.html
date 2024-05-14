@@ -9,63 +9,13 @@
     <style>
         .loading {
             display: inline;
-        }
-        .success::after {
-            content: "✓";
-            color: green;
-        }
-        .failure::after {
-            content: "✕";
-            color: red;
+            height: 20px;
         }
     </style>
 </head>
 
 <body>
 <div class="container">
-    <div class="progress-container">
-        <ul id="progressbar">
-            <li class="active" id="step1"><strong>Step 1</strong></li>
-            <li id="step2"><strong>Step 2</strong></li>
-            <li id="step3"><strong>Step 3</strong></li>
-        </ul>
-        <div class="progress">
-            <div class="progress-bar"></div>
-        </div>
-    </div>
-    <div class="step-container">
-        <fieldset>
-            <h2>Welcome To Step 1: Enter Password</h2>
-            <div class="verify-password">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <input type="button" name="next-step" class="next-step" value="Next Step"/>
-        </fieldset>
-        <fieldset>
-            <h2>Welcome To Step 2: Enter OTP</h2>
-            <div>
-                <p style="text-align: center;margin-top: 20px;color: #3598db;">Mã OTP của bạn là: <span id="otpDisplay"></span></p>
-                <form style="text-align: center; margin-top: 20px;">
-                    <input type="text" maxlength="1" id="digit1" required>
-                    <input type="text" maxlength="1" id="digit2" required>
-                    <input type="text" maxlength="1" id="digit3" required>
-                    <input type="text" maxlength="1" id="digit4" required>
-                    <input type="text" maxlength="1" id="digit5" required>
-                    <input type="text" maxlength="1" id="digit6" required>
-                </form>
-            </div>
-            <input type="button" id="confirmButton" name="next-step" class="next-step" value="Final Step"/>
-            <input type="button" name="previous-step" class="previous-step" value="Previous Step"/>
-        </fieldset>
-        <fieldset>
-            <div class="finish">
-                <h2 class="text"><strong>FINISHED</strong></h2>
-                <!-- Message for success or failure will be displayed here -->
-            </div>
-            <input type="button" name="finish" class="finishBtn" onclick="location.href='/savings-list'" value="Finish" />
-        </fieldset>
-    </div>
     <div class="status-container">
         <div id="status0">
             Start process: <span id="step0Status"></span>
@@ -79,43 +29,17 @@
             Maturing Saving Account: <span id="step2Status"></span>
             <img src="/static/gif/loading.gif" alt="Loading" class="loading" id="step2Loading">
         </div>
+        <div id="status4">
+            Update balance:  <span id="step4Status"></span>
+            <img src="/static/gif/loading.gif" alt="Loading" class="loading" id="step4Loading">
+        </div>
         <div id="status3">
             End Process: <span id="step3Status"></span>
             <img src="/static/gif/loading.gif" alt="Loading" class="loading" id="step3Loading">
         </div>
     </div>
+    <button onclick="window.location.href='/savings-list'">Go to Savings List</button>
 </div>
 <script src="/static/js/maturing.js"></script>
-<script>
-    // async function fetchData(url, step) {
-    //     const loadingImg = document.getElementById(`step${step}Loading`);
-    //     try {
-    //         const response = await fetch(url);
-    //         const data = await response.json();
-    //         updateStatus(step, true);
-    //     } catch (error) {
-    //         updateStatus(step, false);
-    //     } finally {
-    //         loadingImg.style.display = 'none';
-    //     }
-    // }
-    //
-    // function updateStatus(step, success) {
-    //     const statusSpan = document.getElementById(`step${step}Status`);
-    //     if (success) {
-    //         statusSpan.textContent = "Success";
-    //         statusSpan.classList.add('success');
-    //     } else {
-    //         statusSpan.textContent = "Failure - end the process";
-    //         statusSpan.classList.add('failure');
-    //     }
-    // }
-    //
-    // // Example usage
-    // fetchData('api1', 0);
-    // fetchData('api2', 1);
-    // fetchData('api3', 2);
-    // fetchData('api4', 3);
-</script>
 </body>
 </html>

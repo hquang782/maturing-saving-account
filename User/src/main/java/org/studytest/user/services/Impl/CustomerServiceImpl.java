@@ -3,10 +3,10 @@ package org.studytest.user.services.Impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.studytest.user.mappers.CustomerMapper;
-import org.studytest.user.models.Account;
 import org.studytest.user.models.Customer;
 import org.studytest.user.payload.CustomerDTO;
 
+import org.studytest.user.payload.RegisterDto;
 import org.studytest.user.repositories.CustomerRepository;
 import org.studytest.user.services.CustomerService;
 
@@ -30,7 +30,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO getCustomerByAccountId(UUID account_id) {
-        return customerMapper.convertToDTO(customerRepository.findCustomerByAccount_Id(account_id));
+        return customerMapper.convertToDTO(customerRepository.findCustomerByAccountID(account_id));
     }
     @Override
     public Optional<Customer> getCustomerByBankAccountNumber(String bankAccountNumber) {
@@ -43,20 +43,19 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public String createCustomer(CustomerDTO customerDTO, Account account) {
+    public String createCustomer(CustomerDTO customerDTO, UUID accountId) {
         Customer newCustomer = customerMapper.convertToEntity(customerDTO);
-        newCustomer.setAccount(account);
-        System.out.println(newCustomer.getAccount().getId());
+        newCustomer.setAccountID(accountId);
+        System.out.println(newCustomer.getAccountID());
         customerRepository.save(newCustomer);
         return  "Customer created successfully!";
     }
-
     @Override
     public String updateCustomer(Long customerId,double newBalance) {
         Customer customerEntity = customerRepository.findCustomerById(customerId);
         if(customerEntity== null) return null;
         else{
-            customerEntity.getAccount().setBalance(newBalance);
+            customerEntity.setBalance(newBalance);
             customerRepository.save(customerEntity);
             return "update balance success!";
         }

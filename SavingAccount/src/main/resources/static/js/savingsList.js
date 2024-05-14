@@ -94,7 +94,31 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
         localStorage.setItem("selectedSavingsAccountId",selectedSavingsAccountId);
-        window.location.href="/Process";
+
+        // Hiển thị dialog nhập mật khẩu
+        const passwordDialog = document.getElementById("passwordDialog");
+        passwordDialog.style.display = "block";
+
+        // Đóng dialog khi nhấn nút đóng
+        const closeButton = document.querySelector("#passwordDialog .close");
+        closeButton.addEventListener("click", () => {
+            passwordDialog.style.display = "none";
+        });
+
+        // Xác nhận mật khẩu khi nhấn nút xác nhận
+        const confirmButton = document.getElementById("confirmButton");
+        confirmButton.addEventListener("click", () => {
+            const password = document.getElementById("passwordInput").value;
+
+            // Kiểm tra xem mật khẩu đã nhập có hợp lệ không
+            if (password === '') {
+                alert("Vui lòng nhập mật khẩu.");
+                return;
+            }
+
+            localStorage.setItem("passwordVerify",password);
+            window.location.href = "/Process";
+        });
     });
 
 
@@ -107,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function redirectToHome() {
-    window.location.href = "http://localhost:8081/home";
+    window.location.href = "http://localhost:8083/home";
 }
 
 
